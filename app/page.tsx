@@ -245,7 +245,7 @@ export default function Home() {
         <AlertDialogTrigger className="m-2 text-zinc-300 bg-zinc-800 p-2.5 rounded hover:bg-zinc-700">
           Tous les Ingrédients
         </AlertDialogTrigger>
-        <AlertDialogTitle>All</AlertDialogTitle>
+        <AlertDialogTitle></AlertDialogTitle>
         <AlertDialogContent className="bg-zinc-800">
           <ScrollArea className="h-[calc(100vh-200px)] w-full bg-zinc-900 rounded">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-2 p-6">
