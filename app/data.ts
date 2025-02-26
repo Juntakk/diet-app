@@ -1,62 +1,86 @@
-type Meal = {
-  repas: string;
-  boisson?: string;
-  complement?: string;
-  alimentsFermentes?: string;
-  ingredients: string[];
-};
-
-type MealData = {
-  [key: string]: {
-    [time: string]: Meal;
-  };
-};
+import { MealData } from "@/types";
 
 const mealData: MealData = {
   lundi: {
     Déjeuner: {
       repas: "Œufs brouillés aux épinards et avocat 🥑",
-      ingredients: ["🥚 Œufs", "🌿 Épinards", "🥑 Avocat", "🍵 Thé vert"],
+      ingredients: [
+        { name: "🥚 Œufs", category: "Protéines" },
+        { name: "🌿 Épinards", category: "Légumes" },
+        { name: "🥑 Avocat", category: "Protéines" },
+        { name: "🍵 Thé vert", category: "Boissons" },
+      ],
     },
     Lunch: {
       repas: "Poulet grillé avec quinoa et brocolis 🥦",
-      ingredients: ["🍗 Poulet", "🌾 Quinoa", "🥦 Brocolis"],
+      ingredients: [
+        { name: "🍗 Poulet", category: "Protéines" },
+        { name: "🌾 Quinoa", category: "Céréales" },
+        { name: "🥦 Brocolis", category: "Légumes" },
+      ],
     },
     Souper: {
       repas: "Soupe de lentilles avec carottes et céleri 🥕",
-      ingredients: ["🌱 Lentilles", "🥕 Carottes", "🌿 Céleri"],
+      ingredients: [
+        { name: "🌱 Lentilles", category: "Légumineuses" },
+        { name: "🥕 Carottes", category: "Légumes" },
+        { name: "🌿 Céleri", category: "Légumes" },
+      ],
     },
   },
   mardi: {
     Déjeuner: {
-      repas: "Porridge aux flocons d'avoine et bleuets 🫐",
-      ingredients: ["🌾 Flocons d'avoine", "🫐 Bleuets", "🍵 Thé vert"],
+      repas: "Porridge aux flocons d'avoine et fruits rouges 🫐",
+      ingredients: [
+        { name: "🌾 Flocons d'avoine", category: "Céréales" },
+        { name: "🫐 Bleuets", category: "Fruits" },
+        { name: "🍓 Fraises", category: "Fruits" },
+        { name: "🍵 Thé vert", category: "Boissons" },
+      ],
     },
     Lunch: {
-      repas: "Salade de quinoa avec légumes grillés 🥒",
-      ingredients: ["🌾 Quinoa", "🥒 Courgettes", "🌶️ Poivrons"],
+      repas: "Salade de quinoa avec légumes grillés et poulet 🥒",
+      ingredients: [
+        { name: "🌾 Quinoa", category: "Céréales" },
+        { name: "🍗 Poulet", category: "Protéines" },
+        { name: "🥒 Courgettes", category: "Légumes" },
+        { name: "🌶️ Poivrons", category: "Légumes" },
+      ],
     },
     Souper: {
-      repas: "Poisson blanc avec riz basmati et épinards 🌿",
-      ingredients: ["🐟 Poisson blanc", "🍚 Riz basmati", "🌿 Épinards"],
+      repas: "Saumon grillé avec riz basmati et épinards 🌿",
+      ingredients: [
+        { name: "🐟 Saumon", category: "Protéines" },
+        { name: "🍚 Riz basmati", category: "Céréales" },
+        { name: "🌿 Épinards", category: "Légumes" },
+      ],
     },
   },
   mercredi: {
     Déjeuner: {
       repas: "Toast à l'avocat et œuf poché 🍳",
-      ingredients: ["🥑 Avocat", "🥚 Œuf", "🍞 Pain complet", "☕ Café noir"],
+      ingredients: [
+        { name: "🥑 Avocat", category: "Protéines" },
+        { name: "🥚 Œuf", category: "Protéines" },
+        { name: "🍞 Pain complet", category: "Céréales" },
+        { name: "☕ Café noir", category: "Boissons" },
+      ],
     },
     Lunch: {
       repas: "Poulet grillé avec patates douces et asperges 🍠",
-      ingredients: ["🍗 Poulet", "🍠 Patates douces", "🌿 Asperges"],
+      ingredients: [
+        { name: "🍗 Poulet", category: "Protéines" },
+        { name: "🍠 Patates douces", category: "Légumes" },
+        { name: "🌿 Asperges", category: "Légumes" },
+      ],
     },
     Souper: {
       repas: "Curry de légumes avec riz basmati 🍚",
       ingredients: [
-        "🥕 Carottes",
-        "🥒 Courgettes",
-        "🍚 Riz basmati",
-        "🍛 Curry",
+        { name: "🥕 Carottes", category: "Légumes" },
+        { name: "🥒 Courgettes", category: "Légumes" },
+        { name: "🍚 Riz basmati", category: "Céréales" },
+        { name: "🍛 Curry", category: "Épices" },
       ],
     },
   },
@@ -64,66 +88,111 @@ const mealData: MealData = {
     Déjeuner: {
       repas: "Smoothie vert (épinards, banane, lait d'amande) 🍌",
       ingredients: [
-        "🌿 Épinards",
-        "🍌 Banane",
-        "🥛 Lait d'amande",
-        "🍵 Thé vert",
+        { name: "🌿 Épinards", category: "Légumes" },
+        { name: "🍌 Banane", category: "Fruits" },
+        { name: "🥛 Lait d'amande", category: "Boissons" },
+        { name: "🍵 Thé vert", category: "Boissons" },
       ],
     },
     Lunch: {
-      repas: "Salade de lentilles avec légumes 🥕",
-      ingredients: ["🌱 Lentilles", "🥕 Carottes", "🌿 Céleri"],
+      repas: "Salade de lentilles avec légumes et œufs durs 🥕",
+      ingredients: [
+        { name: "🌱 Lentilles", category: "Légumineuses" },
+        { name: "🥕 Carottes", category: "Légumes" },
+        { name: "🌿 Céleri", category: "Légumes" },
+        { name: "🥚 Œufs durs", category: "Protéines" },
+      ],
     },
     Souper: {
       repas: "Poulet rôti avec quinoa et brocolis 🥦",
-      ingredients: ["🍗 Poulet", "🌾 Quinoa", "🥦 Brocolis"],
+      ingredients: [
+        { name: "🍗 Poulet", category: "Protéines" },
+        { name: "🌾 Quinoa", category: "Céréales" },
+        { name: "🥦 Brocolis", category: "Légumes" },
+      ],
     },
   },
   vendredi: {
     Déjeuner: {
       repas: "Œufs brouillés avec avocat et tomate 🍅",
-      ingredients: ["🥚 Œufs", "🥑 Avocat", "🍅 Tomate", "☕ Café noir"],
+      ingredients: [
+        { name: "🥚 Œufs", category: "Protéines" },
+        { name: "🥑 Avocat", category: "Protéines" },
+        { name: "🍅 Tomate", category: "Fruits" },
+        { name: "☕ Café noir", category: "Boissons" },
+      ],
     },
     Lunch: {
       repas: "Poisson blanc avec riz basmati et épinards 🌿",
-      ingredients: ["🐟 Poisson blanc", "🍚 Riz basmati", "🌿 Épinards"],
+      ingredients: [
+        { name: "🐟 Poisson blanc", category: "Protéines" },
+        { name: "🍚 Riz basmati", category: "Céréales" },
+        { name: "🌿 Épinards", category: "Légumes" },
+      ],
     },
     Souper: {
       repas: "Soupe de légumes avec lentilles 🥕",
-      ingredients: ["🌱 Lentilles", "🥕 Carottes", "🌿 Céleri"],
+      ingredients: [
+        { name: "🌱 Lentilles", category: "Légumineuses" },
+        { name: "🥕 Carottes", category: "Légumes" },
+        { name: "🌿 Céleri", category: "Légumes" },
+      ],
     },
   },
   samedi: {
     Déjeuner: {
-      repas: "Porridge aux flocons d'avoine et bleuets 🫐",
-      ingredients: ["🌾 Flocons d'avoine", "🫐 Bleuets", "🍵 Thé vert"],
+      repas: "Porridge aux flocons d'avoine et fruits rouges 🫐",
+      ingredients: [
+        { name: "🌾 Flocons d'avoine", category: "Céréales" },
+        { name: "🫐 Bleuets", category: "Fruits" },
+        { name: "🍓 Fraises", category: "Fruits" },
+        { name: "🍵 Thé vert", category: "Boissons" },
+      ],
     },
     Lunch: {
       repas: "Poulet grillé avec patates douces et asperges 🍠",
-      ingredients: ["🍗 Poulet", "🍠 Patates douces", "🌿 Asperges"],
+      ingredients: [
+        { name: "🍗 Poulet", category: "Protéines" },
+        { name: "🍠 Patates douces", category: "Légumes" },
+        { name: "🌿 Asperges", category: "Légumes" },
+      ],
     },
     Souper: {
       repas: "Curry de légumes avec riz basmati 🍚",
       ingredients: [
-        "🥕 Carottes",
-        "🥒 Courgettes",
-        "🍚 Riz basmati",
-        "🍛 Curry",
+        { name: "🥕 Carottes", category: "Légumes" },
+        { name: "🥒 Courgettes", category: "Légumes" },
+        { name: "🍚 Riz basmati", category: "Céréales" },
+        { name: "🍛 Curry", category: "Épices" },
       ],
     },
   },
   dimanche: {
     Déjeuner: {
       repas: "Toast à l'avocat et œuf poché 🍳",
-      ingredients: ["🥑 Avocat", "🥚 Œuf", "🍞 Pain complet", "☕ Café noir"],
+      ingredients: [
+        { name: "🥑 Avocat", category: "Protéines" },
+        { name: "🥚 Œuf", category: "Protéines" },
+        { name: "🍞 Pain complet", category: "Céréales" },
+        { name: "☕ Café noir", category: "Boissons" },
+      ],
     },
     Lunch: {
-      repas: "Salade de quinoa avec légumes grillés 🥒",
-      ingredients: ["🌾 Quinoa", "🥒 Courgettes", "🌶️ Poivrons"],
+      repas: "Salade de quinoa avec légumes grillés et poulet 🥒",
+      ingredients: [
+        { name: "🌾 Quinoa", category: "Céréales" },
+        { name: "🍗 Poulet", category: "Protéines" },
+        { name: "🥒 Courgettes", category: "Légumes" },
+        { name: "🌶️ Poivrons", category: "Légumes" },
+      ],
     },
     Souper: {
-      repas: "Poisson blanc avec riz basmati et épinards 🌿",
-      ingredients: ["🐟 Poisson blanc", "🍚 Riz basmati", "🌿 Épinards"],
+      repas: "Saumon grillé avec riz basmati et épinards 🌿",
+      ingredients: [
+        { name: "🐟 Saumon", category: "Protéines" },
+        { name: "🍚 Riz basmati", category: "Céréales" },
+        { name: "🌿 Épinards", category: "Légumes" },
+      ],
     },
   },
 };
