@@ -27,12 +27,22 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Ingredient } from "@/types";
+import { signIn, signOut, useSession } from "next-auth/react";
 
 export default function Home() {
   const mealData = data;
   const [selectedDay, setSelectedDay] = useState(Object.keys(mealData)[0]);
   const [isMobile, setIsMobile] = useState(false);
+  const { data: session } = useSession();
 
+  const handleSignIn = () => {
+    signIn("azure-ad");
+  };
+  const handleSignOut = async () => {
+    await signOut({ redirect: true }); // Adjust the callbackUrl to your needs
+    window.location.href =
+      "https://login.microsoftonline.com/common/oauth2/v2.0/logout?post_logout_redirect_uri=http://localhost:3000"; // Replace with your desired URL
+  };
   // Check if the screen is mobile on component mount and resize
   useEffect(() => {
     const checkIfMobile = () => {
@@ -48,7 +58,6 @@ export default function Home() {
   // This function will render the meals for a given day
   const renderMealsForDay = (day: string) => {
     const dayData = mealData[day];
-
     return (
       <ScrollArea className="h-[calc(100vh-250px)] overflow-y-auto border rounded-lg bg-zinc-800">
         {Object.keys(dayData).map((time, index) => {
@@ -241,38 +250,51 @@ export default function Home() {
           ))}
         </Tabs>
       )}
-      <AlertDialog>
-        <AlertDialogTrigger className="m-2 text-zinc-300 bg-zinc-800 p-2.5 rounded hover:bg-zinc-700">
-          Tous les Ingrédients
-        </AlertDialogTrigger>
-        <AlertDialogTitle></AlertDialogTitle>
-        <AlertDialogContent className="bg-zinc-800">
-          <ScrollArea className="h-[calc(100vh-200px)] w-full bg-zinc-900 rounded">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-2 p-6">
-              {Object.entries(groupedIngredients).map(
-                ([category, ingredients]) => (
-                  <div key={category} className="mb-6">
-                    <h3 className="text-xl font-bold text-zinc-200 mb-3">
-                      {category}
-                    </h3>
-                    <ul className="list-disc pl-6">
-                      {ingredients.map((ingredient, index) => (
-                        <li key={index} className="text-md text-zinc-400 mb-2">
-                          {ingredient.name}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )
-              )}
-            </div>
-          </ScrollArea>
+      <div className="flex justify-between items-center mt-6">
+        <AlertDialog>
+          <AlertDialogTrigger className="m-2 text-zinc-300 bg-zinc-800 p-2.5 rounded hover:bg-zinc-700">
+            Tous les Ingrédients
+          </AlertDialogTrigger>
+          <AlertDialogTitle></AlertDialogTitle>
+          <AlertDialogContent className="bg-zinc-800">
+            <ScrollArea className="h-[calc(100vh-200px)] w-full bg-zinc-900 rounded">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-2 p-6">
+                {Object.entries(groupedIngredients).map(
+                  ([category, ingredients]) => (
+                    <div key={category} className="mb-6">
+                      <h3 className="text-xl font-bold text-zinc-200 mb-3">
+                        {category}
+                      </h3>
+                      <ul className="list-disc pl-6">
+                        {ingredients.map((ingredient, index) => (
+                          <li
+                            key={index}
+                            className="text-md text-zinc-400 mb-2"
+                          >
+                            {ingredient.name}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )
+                )}
+              </div>
+            </ScrollArea>
 
-          <AlertDialogFooter>
-            <AlertDialogAction>Fermer</AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+            <AlertDialogFooter>
+              <AlertDialogAction>Fermer</AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+        {session ? (
+          <div>
+            <p>Welcome, {session.user?.name}!</p>
+            <Button onClick={handleSignOut}>Sign Out</Button>
+          </div>
+        ) : (
+          <Button onClick={handleSignIn}>Sign In with Microsoft</Button>
+        )}
+      </div>
     </div>
   );
 }
