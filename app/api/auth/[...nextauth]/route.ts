@@ -1,7 +1,7 @@
 import NextAuth from "next-auth";
 import AzureADProvider from "next-auth/providers/azure-ad";
 
-export const authOptions = {
+const authOptions = {
   providers: [
     AzureADProvider({
       clientId: process.env.AZURE_AD_CLIENT_ID!,
@@ -18,6 +18,8 @@ export const authOptions = {
   },
 };
 
+// Correct API route structure for Next.js App Router
 const handler = NextAuth(authOptions);
-export { handler as GET, handler as POST };
-export default handler;
+
+export const GET = handler;
+export const POST = handler;
