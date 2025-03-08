@@ -118,11 +118,7 @@ export default function Home() {
   // Group ingredients by category
   const groupIngredientsByCategory = (ingredients: Ingredient[]) => {
     return ingredients.reduce((acc, ingredient) => {
-      console.log(acc);
-      // console.log(ingredient);
-
       const category = ingredient.category;
-      // console.log(category);
 
       if (!acc[category]) {
         acc[category] = [];

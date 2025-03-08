@@ -12,7 +12,6 @@ const authOptions = {
   callbacks: {
     async session({ session, token }: { session: any; token: any }) {
       session.user.id = token.sub;
-      console.log(session);
       return session;
     },
   },
