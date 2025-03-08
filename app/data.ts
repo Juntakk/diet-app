@@ -61,7 +61,7 @@ const mealData: MealData = {
       repas: "Toast à l'avocat et œuf poché 🍳",
       ingredients: [
         { name: "🥑 Avocat", category: "Protéines" },
-        { name: "🥚 Œuf", category: "Protéines" },
+        { name: "🥚 Œufs", category: "Protéines" },
         { name: "🍞 Pain complet", category: "Céréales" },
         { name: "☕ Café noir", category: "Boissons" },
       ],
@@ -172,7 +172,7 @@ const mealData: MealData = {
       repas: "Toast à l'avocat et œuf poché 🍳",
       ingredients: [
         { name: "🥑 Avocat", category: "Protéines" },
-        { name: "🥚 Œuf", category: "Protéines" },
+        { name: "🥚 Œufs", category: "Protéines" },
         { name: "🍞 Pain complet", category: "Céréales" },
         { name: "☕ Café noir", category: "Boissons" },
       ],
