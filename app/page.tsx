@@ -8,42 +8,26 @@ import { useState, useEffect } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuLabel,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import {
   AlertDialog,
   AlertDialogAction,
-  AlertDialogCancel,
   AlertDialogContent,
-  AlertDialogDescription,
   AlertDialogFooter,
-  AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Ingredient } from "@/types";
-import { signIn, signOut, useSession } from "next-auth/react";
 
 export default function Home() {
   const mealData = data;
   const [selectedDay, setSelectedDay] = useState(Object.keys(mealData)[0]);
   const [isMobile, setIsMobile] = useState(false);
-  const { data: session } = useSession();
 
-  const handleSignIn = () => {
-    signIn("azure-ad");
-  };
-  const handleSignOut = async () => {
-    await signOut({ redirect: true }); // Adjust the callbackUrl to your needs
-    window.location.href =
-      "https://login.microsoftonline.com/common/oauth2/v2.0/logout?post_logout_redirect_uri=http://localhost:3000"; // Replace with your desired URL
-  };
-  // Check if the screen is mobile on component mount and resize
   useEffect(() => {
     const checkIfMobile = () => {
       setIsMobile(window.innerWidth <= 768);
@@ -55,7 +39,6 @@ export default function Home() {
     return () => window.removeEventListener("resize", checkIfMobile);
   }, []);
 
-  // This function will render the meals for a given day
   const renderMealsForDay = (day: string) => {
     const dayData = mealData[day];
     return (
@@ -90,7 +73,6 @@ export default function Home() {
     );
   };
 
-  // This function will gather all ingredients for the given day
   const gatherAllIngredients = (day: string) => {
     const dayData = mealData[day];
     const allIngredients = Object.values(dayData).flatMap(
@@ -115,7 +97,6 @@ export default function Home() {
     return Array.from(uniqueIngredientsMap.values());
   };
 
-  // Group ingredients by category
   const groupIngredientsByCategory = (ingredients: Ingredient[]) => {
     return ingredients.reduce((acc, ingredient) => {
       const category = ingredient.category;
@@ -134,7 +115,6 @@ export default function Home() {
   return (
     <div className="dark p-6">
       {isMobile ? (
-        // Dropdown menu for mobile screens
         <div className="flex flex-col gap-4">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -185,7 +165,6 @@ export default function Home() {
           </Card>
         </div>
       ) : (
-        // Tabs for larger screens
         <Tabs
           defaultValue={selectedDay}
           onValueChange={(value) => setSelectedDay(value)}
@@ -282,14 +261,6 @@ export default function Home() {
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
-        {session ? (
-          <div>
-            <p>Welcome, {session.user?.name}!</p>
-            <Button onClick={handleSignOut}>Sign Out</Button>
-          </div>
-        ) : (
-          <Button onClick={handleSignIn}>Sign In with Microsoft</Button>
-        )}
       </div>
     </div>
   );
